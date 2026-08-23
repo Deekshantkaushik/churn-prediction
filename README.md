@@ -1,2 +1,2 @@
-# churn-projection
+# churn-prediction
 initiattion
