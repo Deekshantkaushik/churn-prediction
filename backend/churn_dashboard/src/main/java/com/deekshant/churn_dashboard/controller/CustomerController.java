@@ -5,6 +5,8 @@ import com.deekshant.churn_dashboard.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -22,6 +24,16 @@ public class CustomerController {
     @GetMapping("/{id}")
     public Customer getCustomerById(@PathVariable Integer id) {
         return customerRepository.findById(id).orElse(null);
+    }
+    @GetMapping("/search")
+    public Page<Customer> searchCustomers(
+            @RequestParam(required = false) String contractType,
+            Pageable pageable) {
+
+        if (contractType != null) {
+            return customerRepository.findByContractType(contractType, pageable);
+        }
+        return customerRepository.findAll(pageable);
     }
 
     @PostMapping
