@@ -4,6 +4,7 @@ import com.deekshant.churn_dashboard.entity.Customer;
 import com.deekshant.churn_dashboard.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -26,5 +27,11 @@ public class CustomerController {
     @PostMapping
     public Customer createCustomer(@RequestBody Customer customer) {
         return customerRepository.save(customer);
+    }
+    @GetMapping("/high-risk")
+    @Cacheable("highRiskCustomers")
+    public List<Customer> getHighRiskCustomers() {
+        System.out.println("Querying MySQL for high-risk customers..."); // temporary, to observe caching behavior
+        return customerRepository.findByContractType("Month-to-month");
     }
 }
