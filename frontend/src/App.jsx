@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Login from './login';
-
+import CustomerTable from './CustomerTable';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
 
@@ -9,10 +9,10 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>Churn Dashboard</h1>
-      <p>You are logged in!</p>
-    </div>
+    <div style={{ padding: '2rem' }}>
+            <h1>Churn Dashboard</h1>
+            <CustomerTable />
+        </div>
   );
 }
 
