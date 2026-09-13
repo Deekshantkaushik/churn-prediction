@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import java.util.Map;
+import java.util.HashMap;
+import com.deekshant.churn_dashboard.entity.ChurnScore;
+import com.deekshant.churn_dashboard.repository.ChurnScoreRepository;
 
 import java.util.List;
 
@@ -15,6 +19,7 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired private ChurnScoreRepository churnScoreRepository;
 
     @GetMapping
     public List<Customer> getAllCustomers() {
@@ -34,6 +39,15 @@ public class CustomerController {
             return customerRepository.findByContractType(contractType, pageable);
         }
         return customerRepository.findAll(pageable);
+    }
+    @GetMapping("/risk-summary")
+    public Map<String, Long> getRiskSummary() {
+        List<ChurnScore> allScores = churnScoreRepository.findAll();
+        Map<String, Long> summary = new HashMap<>();
+        summary.put("Low", allScores.stream().filter(s -> "Low".equals(s.getRiskTier())).count());
+        summary.put("Medium", allScores.stream().filter(s -> "Medium".equals(s.getRiskTier())).count());
+        summary.put("High", allScores.stream().filter(s -> "High".equals(s.getRiskTier())).count());
+        return summary;
     }
 
     @PostMapping
