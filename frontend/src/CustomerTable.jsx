@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchCustomers } from './api';
+import { Link } from 'react-router-dom';
 
 function CustomerTable() {
     const [customers, setCustomers] = useState([]);
@@ -65,6 +66,7 @@ function CustomerTable() {
                             <td>{customer.tenureMonths}</td>
                             <td>{customer.monthlyCharges}</td>
                             <td>{customer.internetService}</td>
+                            <td><Link to={`/customers/${customer.customerId}`}>{customer.customerId}</Link></td>
                         </tr>
                     ))}
                 </tbody>
