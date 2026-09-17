@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'https://churn-prediction-1-pueb.onrender.com';
 
 export function getAuthHeaders() {
     const token = localStorage.getItem('token');
