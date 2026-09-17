@@ -9,7 +9,7 @@ function Login({ onLoginSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/auth/login', {
+     const response = await axios.post('https://churn-prediction-1-pueb.onrender.com/auth/login', {
         username,
         password
       });
