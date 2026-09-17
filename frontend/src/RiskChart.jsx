@@ -7,7 +7,7 @@ function RiskChart() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/customers/risk-summary', getAuthHeaders())
+       axios.get('https://churn-prediction-1-pueb.onrender.com/customers/risk-summary', getAuthHeaders())
             .then(response => {
                 const chartData = Object.entries(response.data).map(([tier, count]) => ({
                     tier,

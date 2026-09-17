@@ -13,9 +13,9 @@ function CustomerDetail() {
 
     useEffect(() => {
         Promise.all([
-            axios.get(`http://localhost:8080/customers/${id}`, getAuthHeaders()),
-            axios.get(`http://localhost:8080/retention-actions/customer/${id}`, getAuthHeaders()),
-            axios.get(`http://localhost:8080/churn-scores/latest/${id}`, getAuthHeaders())
+            axios.get(`https://churn-prediction-1-pueb.onrender.com/customers/${id}`, getAuthHeaders()),
+axios.get(`https://churn-prediction-1-pueb.onrender.com/retention-actions/customer/${id}`, getAuthHeaders()),
+axios.get(`https://churn-prediction-1-pueb.onrender.com/churn-scores/latest/${id}`, getAuthHeaders())
         ]).then(([customerRes, actionsRes , scoreRes]) => {
             setCustomer(customerRes.data);
             setActions(actionsRes.data);
