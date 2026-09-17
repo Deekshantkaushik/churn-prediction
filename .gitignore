@@ -2,3 +2,5 @@ api/venv/
 backend/churn_dashboard/target/ 
 backend/churn_dashboard/.idea/ 
 frontend/node_modules/ 
+.env
+__pycache__/
