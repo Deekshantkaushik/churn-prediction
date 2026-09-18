@@ -1,11 +1,14 @@
 import requests
 import mysql.connector
+import os
 
 conn = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Deekshant@86",
-    database="churn_db"
+    host="mysql-581dae4-deekshantkaushik9-cdc9.f.aivencloud.com",
+    port=17182,
+    user="avnadmin",
+    password=os.getenv("AIVEN_MYSQL_PASSWORD"),
+    database="churn_db",
+    ssl_ca=r"C:\Users\deeks\Downloads\ca.pem"
 )
 cursor = conn.cursor(dictionary=True)
 cursor.execute("""
@@ -20,12 +23,22 @@ customers = cursor.fetchall()
 cursor.close()
 conn.close()
 
-login_response = requests.post("http://localhost:8080/auth/login", json={
-    "username": "admin2",
-    "password": "test123"
-})
+login_response = requests.post(
+    "https://churn-prediction-1-pueb.onrender.com/auth/login",
+    json={
+        "username": "admin3",
+        "password": "test123"
+    },
+    timeout=60
+)
 print("Login status code:", login_response.status_code)
 print("Login response:", login_response.text)
+
+if login_response.status_code != 200:
+    print("LOGIN FAILED")
+    print("Status:", login_response.status_code)
+    print("Response:", repr(login_response.text))
+    exit()
 
 token = login_response.json()["token"]
 headers = {"Authorization": f"Bearer {token}"}
@@ -72,7 +85,7 @@ for customer in customers[:500]:
     print(f"\nAttempting customer {customer['customer_id']}...")
     try:
         response = requests.post(
-            f"http://localhost:8080/churn-scores/{customer['customer_id']}",
+           f"https://churn-prediction-1-pueb.onrender.com/churn-scores/{customer['customer_id']}",
             json=payload,
             headers=headers,
             timeout=10

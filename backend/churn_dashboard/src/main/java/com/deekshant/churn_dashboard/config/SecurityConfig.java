@@ -48,7 +48,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**", "/hello").permitAll()
-                        .requestMatchers("/customers/**").hasAnyRole("ADMIN", "RETENTION")
+                        .requestMatchers("/customers/**", "/churn-scores/**")
+                        .hasAnyRole("ADMIN", "RETENTION")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
