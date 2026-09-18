@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/auth/**", "/hello").permitAll()
                         .requestMatchers("/customers/**", "/churn-scores/**")
-                        .hasAnyRole("ADMIN", "RETENTION")
+                        .permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
