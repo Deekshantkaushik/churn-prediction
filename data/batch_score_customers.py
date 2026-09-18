@@ -80,7 +80,7 @@ def build_payload(customer):
 success_count = 0
 failed_count = 0
 
-for customer in customers[:500]:
+for customer in customers[:1]:
     payload = build_payload(customer)
     print(f"\nAttempting customer {customer['customer_id']}...")
     try:

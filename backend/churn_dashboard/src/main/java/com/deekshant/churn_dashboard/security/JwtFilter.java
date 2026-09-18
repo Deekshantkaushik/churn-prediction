@@ -38,6 +38,10 @@ public class JwtFilter extends OncePerRequestFilter {
                         "DEBUG - Authentication set: "
                                 + SecurityContextHolder.getContext().getAuthentication()
                 );
+                System.out.println("DEBUG - Authorities: "
+                        + SecurityContextHolder.getContext()
+                        .getAuthentication()
+                        .getAuthorities());
             }
             else {
                 System.out.println("DEBUG - Token validation FAILED");
