@@ -23,8 +23,12 @@ public class ChurnPredictionService {
 
     public ChurnScore scoreCustomer(Customer customer, CustomerPredictionRequest request) {
         // Step 1: Call the FastAPI service
-        PredictionResponse response = restTemplate.postForObject(mlServiceUrl, request, PredictionResponse.class);
+        System.out.println("🔥 ML SERVICE URL: " + mlServiceUrl);
+        System.out.println("🔥 BEFORE CALLING FASTAPI");
 
+        PredictionResponse response = restTemplate.postForObject(mlServiceUrl, request, PredictionResponse.class);
+        System.out.println("🔥 AFTER CALLING FASTAPI");
+        System.out.println("🔥 ML RESPONSE: " + response);
         // Step 2: Build a ChurnScore entity from the response
         ChurnScore churnScore = new ChurnScore();
         churnScore.setCustomer(customer);
