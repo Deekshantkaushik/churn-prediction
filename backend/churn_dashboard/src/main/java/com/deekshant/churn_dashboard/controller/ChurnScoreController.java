@@ -22,6 +22,7 @@ public class ChurnScoreController {
 
     @PostMapping("/{customerId}")
     public ChurnScore scoreCustomer(@PathVariable Integer customerId, @RequestBody CustomerPredictionRequest request) {
+        System.out.println("🔥 CONTROLLER REACHED: customer " + customerId);
         Customer customer = customerRepository.findById(customerId).orElseThrow();
         return churnPredictionService.scoreCustomer(customer, request);
     }
