@@ -34,6 +34,10 @@ public class JwtFilter extends OncePerRequestFilter {
                         username, null, Collections.singletonList(() -> "ROLE_" + role.toUpperCase())
                 );
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                System.out.println(
+                        "DEBUG - Authentication set: "
+                                + SecurityContextHolder.getContext().getAuthentication()
+                );
             }
             else {
                 System.out.println("DEBUG - Token validation FAILED");
